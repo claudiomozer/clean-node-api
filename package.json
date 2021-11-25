@@ -11,5 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "git-commit-msg-linter": "^3.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.10",
+    "typescript": "^4.5.2"
   }
 }
