@@ -1,5 +1,5 @@
 import { SignUpController } from './signup'
-import { EmailValidator, AddAccount, AddAccountModel, AccountModel, HttpRequest } from './signup-protocols'
+import { EmailValidator, AddAccount, AddAccountModel, AccountModel, HttpRequest, Validation } from './signup-protocols'
 import { MissingParamError, InvalidParamError, ServerError } from '../../errors'
 import { ok, serverError, badRequest } from '../../helpers/http-helpers'
 
@@ -24,6 +24,16 @@ const makeAddAccount = (): AddAccount => {
   return new AddAccountStub()
 }
 
+const makeValidation = (): Validation => {
+  class ValidationStub implements Validation {
+    validate (input: any): Error | null {
+      return null
+    }
+  }
+
+  return new ValidationStub()
+}
+
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
@@ -44,16 +54,19 @@ interface SutTypes {
   sut: SignUpController
   emailValidatorStub: EmailValidator
   addAccountStub: AddAccount
+  validationStub: Validation
 }
 
 const makeSut = (): SutTypes => {
   const addAccountStub = makeAddAccount()
   const emailValidatorStub = makeEmailValidator()
-  const sut = new SignUpController(emailValidatorStub, addAccountStub)
+  const validationStub = makeValidation()
+  const sut = new SignUpController(emailValidatorStub, addAccountStub, validationStub)
   return {
     sut,
     emailValidatorStub,
-    addAccountStub
+    addAccountStub,
+    validationStub
   }
 }
 
@@ -150,37 +163,45 @@ describe('SignUp Controller', () => {
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
   })
-})
 
-test('Should call AddAccount with correct values', async () => {
-  const { sut, addAccountStub } = makeSut()
+  test('Should call AddAccount with correct values', async () => {
+    const { sut, addAccountStub } = makeSut()
 
-  const addAccount = {
-    name: 'any_name',
-    email: 'any_email@mail.com',
-    password: 'any_password'
-  }
+    const addAccount = {
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    }
 
-  const addSpy = jest.spyOn(addAccountStub, 'add')
-  const httpRequest = makeFakeRequest()
-  await sut.handle(httpRequest)
-  expect(addSpy).toHaveBeenCalledWith(addAccount)
-})
-
-test('Should return 500 if AddAccount throws', async () => {
-  const { sut, addAccountStub } = makeSut()
-  jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
-    return await Promise.reject(new Error())
+    const addSpy = jest.spyOn(addAccountStub, 'add')
+    const httpRequest = makeFakeRequest()
+    await sut.handle(httpRequest)
+    expect(addSpy).toHaveBeenCalledWith(addAccount)
   })
-  const httpRequest = makeFakeRequest()
-  const httpResponse = await sut.handle(httpRequest)
-  expect(httpResponse).toEqual(serverError(new Error()))
-})
 
-test('Should return 200 if a valid data is provided', async () => {
-  const { sut } = makeSut()
+  test('Should return 500 if AddAccount throws', async () => {
+    const { sut, addAccountStub } = makeSut()
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
+      return await Promise.reject(new Error())
+    })
+    const httpRequest = makeFakeRequest()
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(serverError(new Error()))
+  })
 
-  const httpRequest = makeFakeRequest()
-  const httpResponse = await sut.handle(httpRequest)
-  expect(httpResponse).toEqual(ok(makeFakeAccount()))
+  test('Should return 200 if a valid data is provided', async () => {
+    const { sut } = makeSut()
+    const httpRequest = makeFakeRequest()
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(ok(makeFakeAccount()))
+  })
+
+  test('Should call Validation with correct value', async () => {
+    const { sut, validationStub } = makeSut()
+
+    const validateSpy = jest.spyOn(validationStub, 'validate')
+    const httpRequest = makeFakeRequest()
+    await sut.handle(httpRequest)
+    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
+  })
 })
