@@ -1,6 +1,6 @@
 import { SignUpController } from './signup-controller'
-import { MissingParamError } from '../../errors'
-import { ok, serverError, badRequest } from '../../helpers/http/http-helpers'
+import { EmailInUseError, MissingParamError } from '../../errors'
+import { ok, serverError, badRequest, forbidden } from '../../helpers/http/http-helpers'
 import {
   AddAccount,
   AddAccountModel,
@@ -13,7 +13,7 @@ import {
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
-    async add (account: AddAccountModel): Promise<AccountModel> {
+    async add (account: AddAccountModel): Promise<AccountModel | null> {
       const fakeAccount = makeFakeAccount()
       return await Promise.resolve(fakeAccount)
     }
@@ -147,5 +147,15 @@ describe('SignUp Controller', () => {
     const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 403 if AddAccount returns null', async () => {
+    const { sut, addAccountStub } = makeSut()
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
+      return null
+    })
+    const httpRequest = makeFakeRequest()
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(forbidden(new EmailInUseError()))
   })
 })
