@@ -4,7 +4,7 @@ import {
   Controller,
   HttpRequest,
   HttpResponse,
-  ok,
+  noContent,
   serverError,
   Validation
 } from './add-survey-controller-protocols'
@@ -29,7 +29,7 @@ export class AddSurveyController implements Controller {
         answers
       })
 
-      return ok(null)
+      return noContent()
     } catch (error) {
       return serverError(error)
     }
