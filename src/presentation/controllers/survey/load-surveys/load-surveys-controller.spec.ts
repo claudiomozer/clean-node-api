@@ -1,5 +1,5 @@
 import { LoadSurveys, noContent, ok, serverError } from './load-surveys-controller-protocols'
-import { SurveyModel } from '../../../../domain/models/survey'
+import { SurveyModel } from '@/domain/models/survey'
 import { LoadSurveysController } from './load-surveys-controller'
 import MockDate from 'mockdate'
 

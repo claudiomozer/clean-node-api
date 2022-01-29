@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/main/server.js",
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
     "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy dist/main/server.js",
     "up": "npm run build && docker-compose up -d",
     "down": "docker-compose down",
@@ -25,6 +25,7 @@
     "express": "^4.17.2",
     "git-commit-msg-linter": "^3.3.3",
     "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
     "mongodb": "^4.3.0",
     "nodemon": "^2.0.15",
     "validator": "^13.7.0"
@@ -57,5 +58,8 @@
   },
   "engines": {
     "node": "14.x"
+  },
+  "_moduleAliases": {
+    "@": "dist"
   }
 }
