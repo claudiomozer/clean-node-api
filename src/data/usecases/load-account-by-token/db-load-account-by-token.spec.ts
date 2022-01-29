@@ -1,6 +1,8 @@
-import { Decrypter } from '@/data/protocols/criptography/decrypter'
-import { AccountModel } from '@/data/usecases/add-account/db-add-account-protocols'
-import { LoadAccountByTokenRepository } from '@/data/protocols/db/account/load-account-by-token-repository'
+import {
+  Decrypter,
+  AccountModel,
+  LoadAccountByTokenRepository
+} from '@/data/usecases/load-account-by-token/db-load-account-by-token-protocols'
 import { DbLoadAccountByToken } from './db-load-account-by-token'
 
 const makeDecrypter = (): Decrypter => {
