@@ -8,7 +8,7 @@ const makeSut = (): SurveyMongoRepository => {
 
 let surveyCollection: Collection
 
-describe('Account Mongo Repository', () => {
+describe('Survey Mongo Repository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL as string)
   })
@@ -41,7 +41,7 @@ describe('Account Mongo Repository', () => {
     })
   })
 
-  describe('add()', () => {
+  describe('loadAll()', () => {
     test('Should load all surveys on success', async () => {
       await surveyCollection.insertMany([
         {
@@ -72,6 +72,23 @@ describe('Account Mongo Repository', () => {
       const sut = makeSut()
       const surveys = await sut.loadAll()
       expect(surveys.length).toBe(0)
+    })
+  })
+
+  describe('loadById()', () => {
+    test('Should load a survey by id on success', async () => {
+      const insertedSurvey = await surveyCollection.insertOne({
+        question: 'any_question',
+        answers: [{
+          image: 'any_image',
+          answer: 'any_answer'
+        }],
+        date: new Date()
+      })
+      const id = insertedSurvey.insertedId.toString()
+      const sut = makeSut()
+      const surveys = await sut.loadById(id)
+      expect(surveys).toBeTruthy()
     })
   })
 })
