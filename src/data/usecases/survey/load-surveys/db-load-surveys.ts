@@ -2,7 +2,7 @@ import {
   SurveyModel,
   LoadSurveys,
   LoadSurveysRepository
-} from '@/data/usecases/load-surveys/db-load-surveys-protocols'
+} from '@/data/usecases/survey/load-surveys/db-load-surveys-protocols'
 
 export class DbLoadSurveys implements LoadSurveys {
   constructor (
