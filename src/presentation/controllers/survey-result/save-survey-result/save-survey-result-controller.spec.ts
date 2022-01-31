@@ -6,7 +6,7 @@ import {
   SaveSurveyResultModel,
   SurveyResultModel
 } from './save-survey-result-controller-protocols'
-import { forbidden, serverError } from '@/presentation/helpers/http/http-helpers'
+import { forbidden, serverError, ok } from '@/presentation/helpers/http/http-helpers'
 import { SaveSurveyResultController } from './save-survey-result-controller'
 import { InvalidParamError } from '@/presentation/errors'
 import MockDate from 'mockdate'
@@ -138,5 +138,11 @@ describe('SaveSurveyResult Controller', () => {
     })
     const response = await sut.handle({})
     expect(response).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 200 on success', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(ok(makeFakeSurveyResult()))
   })
 })
