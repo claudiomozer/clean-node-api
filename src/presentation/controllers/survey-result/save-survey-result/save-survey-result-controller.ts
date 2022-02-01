@@ -18,7 +18,8 @@ export class SaveSurveyResultController implements Controller {
     try {
       const { surveyId } = httpRequest.params
       const { answer } = httpRequest.body
-      const { accountId } = httpRequest
+      let { accountId } = httpRequest
+      accountId = accountId ?? ''
       const survey = await this.loadSurveyById.loadById(surveyId)
       if (survey) {
         const answers = survey.answers.map(a => a.answer)
@@ -29,7 +30,7 @@ export class SaveSurveyResultController implements Controller {
         return forbidden(new InvalidParamError('surveyId'))
       }
       const surveyResult = await this.saveSurveyResult.save({
-        accountId: accountId ?? '',
+        accountId: accountId,
         surveyId,
         answer,
         date: new Date()
