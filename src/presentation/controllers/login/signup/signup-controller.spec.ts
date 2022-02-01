@@ -3,17 +3,17 @@ import { EmailInUseError, MissingParamError } from '@/presentation/errors'
 import { ok, serverError, badRequest, forbidden } from '@/presentation/helpers/http/http-helpers'
 import {
   AddAccount,
-  AddAccountModel,
+  AddAccountParams,
   AccountModel,
   HttpRequest,
   Validation,
   Authentication,
-  AuthenticationModel
+  AuthenticationParams
 } from './signup-controller-protocols'
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
-    async add (account: AddAccountModel): Promise<AccountModel | null> {
+    async add (account: AddAccountParams): Promise<AccountModel | null> {
       const fakeAccount = makeFakeAccount()
       return await Promise.resolve(fakeAccount)
     }
@@ -24,7 +24,7 @@ const makeAddAccount = (): AddAccount => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
+    async auth (authentication: AuthenticationParams): Promise<string> {
       return 'any_token'
     }
   }

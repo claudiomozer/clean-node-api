@@ -3,7 +3,7 @@ import {
   HttpRequest,
   LoadSurveyById,
   SaveSurveyResult,
-  SaveSurveyResultModel,
+  SaveSurveyResultParams,
   SurveyResultModel
 } from './save-survey-result-controller-protocols'
 import { forbidden, serverError, ok } from '@/presentation/helpers/http/http-helpers'
@@ -50,7 +50,7 @@ const makeLoadSurveyById = (): LoadSurveyById => {
 
 const makeSaveSurveyResult = (): SaveSurveyResult => {
   class LoadSurveyByIdStub implements SaveSurveyResult {
-    async save (data: SaveSurveyResultModel): Promise<SurveyResultModel> {
+    async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
       return await Promise.resolve(makeFakeSurveyResult())
     }
   }

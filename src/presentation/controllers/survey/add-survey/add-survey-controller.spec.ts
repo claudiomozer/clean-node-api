@@ -1,4 +1,4 @@
-import { AddSurvey, AddSurveyModel, badRequest, HttpRequest, noContent, serverError, Validation } from './add-survey-controller-protocols'
+import { AddSurvey, AddSurveyParams, badRequest, HttpRequest, noContent, serverError, Validation } from './add-survey-controller-protocols'
 import { AddSurveyController } from './add-survey-controller'
 import MockDate from 'mockdate'
 
@@ -26,7 +26,7 @@ const makeValidation = (): Validation => {
 
 const makeAddSurvey = (): AddSurvey => {
   class AddSurveyStub implements AddSurvey {
-    async add (data: AddSurveyModel): Promise<void> {
+    async add (data: AddSurveyParams): Promise<void> {
       return await Promise.resolve()
     }
   }
