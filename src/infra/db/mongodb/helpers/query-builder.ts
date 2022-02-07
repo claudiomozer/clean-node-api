@@ -29,16 +29,16 @@ export class QueryBuilder {
     return this
   }
 
-  addFields (data: object): QueryBuilder {
+  project (data: object): QueryBuilder {
     this.query.push({
-      $addFields: data
+      $project: data
     })
     return this
   }
 
-  project (data: object): QueryBuilder {
+  sort (data: object): QueryBuilder {
     this.query.push({
-      $project: data
+      $sort: data
     })
     return this
   }
