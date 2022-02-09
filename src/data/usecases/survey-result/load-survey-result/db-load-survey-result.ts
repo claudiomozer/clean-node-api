@@ -1,4 +1,4 @@
-import { mockSurveyResult } from '@/domain/test'
+
 import {
   LoadSurveyResult,
   SurveyResultModel,
@@ -12,11 +12,22 @@ export class DbLoadSurveyResult implements LoadSurveyResult {
     private readonly loadSurveyById: LoadSurveyByIdRepository
   ) {}
 
-  async load (surveyId: string): Promise<SurveyResultModel> {
-    const surveyResult = await this.loadSurveyResultRepository.loadBySurveyId(surveyId)
+  async load (surveyId: string): Promise<SurveyResultModel | null> {
+    let surveyResult = await this.loadSurveyResultRepository.loadBySurveyId(surveyId)
     if (!surveyResult) {
-      await this.loadSurveyById.loadById(surveyId)
+      const survey = await this.loadSurveyById.loadById(surveyId)
+      if (survey) {
+        surveyResult = {
+          surveyId: survey.id,
+          question: survey.question,
+          date: survey.date,
+          answers: survey.answers.map(answer => Object.assign({}, answer, {
+            count: 0,
+            percent: 0
+          }))
+        }
+      }
     }
-    return mockSurveyResult()
+    return surveyResult
   }
 }
