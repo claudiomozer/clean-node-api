@@ -5,7 +5,7 @@ import {
   SaveSurveyResultParams
 } from '@/data/usecases/survey-result/save-survey-result/db-save-survey-result-protocols'
 import { LoadSurveyResultRepository } from '@/data/protocols/db/survey-result/load-survey-result-repository'
-import { mockSurveyResult } from '@/domain/test'
+import { MongoHelper } from '@/infra/db/mongodb/helpers'
 
 export class DbSaveSurveyResult implements SaveSurveyResult {
   constructor (
@@ -15,7 +15,7 @@ export class DbSaveSurveyResult implements SaveSurveyResult {
 
   async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
     await this.saveSurveyResultRepository.save(data)
-    await this.loadSurveyResultRepository.loadBySurveyId(data.surveyId)
-    return mockSurveyResult()
+    const surveyResult = await this.loadSurveyResultRepository.loadBySurveyId(data.surveyId)
+    return MongoHelper.map(surveyResult)
   }
 }
