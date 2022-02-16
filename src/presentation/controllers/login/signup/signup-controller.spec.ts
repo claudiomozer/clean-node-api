@@ -68,7 +68,7 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpRequest = mockRequest()
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token', name: 'any_name' }))
   })
 
   test('Should call Validation with correct value', async () => {
@@ -103,7 +103,7 @@ describe('SignUp Controller', () => {
     const { sut, authenticationStub } = makeSut()
     jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(async () => {
       await Promise.reject(new Error())
-      return ''
+      return null
     })
     const httpRequest = mockRequest()
     const httpResponse = await sut.handle(httpRequest)

@@ -43,7 +43,7 @@ describe('Login Controller', () => {
   test('Should return 401 if an invalid credentials are provided', async () => {
     const { sut, authenticationStub } = makeSut()
     jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(async () => {
-      return await Promise.resolve('')
+      return await Promise.resolve(null)
     })
     const httpRequest = mockRequest()
     const httpResponse = await sut.handle(httpRequest)
@@ -54,7 +54,7 @@ describe('Login Controller', () => {
     const { sut, authenticationStub } = makeSut()
     jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(async () => {
       await Promise.reject(new Error())
-      return ''
+      return null
     })
     const httpRequest = mockRequest()
     const httpResponse = await sut.handle(httpRequest)
@@ -62,13 +62,10 @@ describe('Login Controller', () => {
   })
 
   test('Should return 200 if an valid credentials are provided', async () => {
-    const { sut, authenticationStub } = makeSut()
-    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(async () => {
-      return await Promise.resolve('valid_token')
-    })
+    const { sut } = makeSut()
     const httpRequest = mockRequest()
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(ok({ accessToken: 'valid_token' }))
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token', name: 'any_name' }))
   })
 
   test('Should call Validation with correct value', async () => {
