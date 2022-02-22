@@ -2,39 +2,41 @@ import { Decrypter } from '@/data/protocols/criptography/decrypter'
 import { Encrypter } from '@/data/protocols/criptography/encrypter'
 import { HashComparer } from '@/data/protocols/criptography/hash-comparer'
 import { Hasher } from '@/data/protocols/criptography/hasher'
+import faker from '@faker-js/faker'
 
-export const mockHasher = (): Hasher => {
-  class HasherStub implements Hasher {
-    async hash (value: string): Promise<string> {
-      return await Promise.resolve('any_password')
-    }
+export class HasherSpy implements Hasher {
+  value: string
+  encrypted = faker.datatype.uuid()
+  async hash (value: string): Promise<string> {
+    this.value = value
+    return await Promise.resolve(value)
   }
-  return new HasherStub()
 }
 
-export const mockHashComparer = (): HashComparer => {
-  class HashComparerStub implements HashComparer {
-    async compare (value: string, hash: string): Promise<boolean> {
-      return true
-    }
+export class HashComparerSpy implements HashComparer {
+  value: string
+  hash: string
+  async compare (value: string, hash: string): Promise<boolean> {
+    this.value = value
+    this.hash = hash
+    return true
   }
-  return new HashComparerStub()
 }
 
-export const mockDecrypter = (): Decrypter => {
-  class DecrypterStub implements Decrypter {
-    async decrypt (value: string): Promise<string | null> {
-      return await Promise.resolve('any_value')
-    }
+export class EncrypterSpy implements Encrypter {
+  value: string
+  token = faker.datatype.uuid()
+  async encrypt (value: string): Promise<string> {
+    this.value = value
+    return this.token
   }
-  return new DecrypterStub()
 }
 
-export const mockEncrypter = (): Encrypter => {
-  class EncrypterStub implements Encrypter {
-    async encrypt (value: string): Promise<string> {
-      return 'any_token'
-    }
+export class DecrypterSpy implements Decrypter {
+  value: string
+  decrypted = faker.random.word()
+  async decrypt (value: string): Promise<string | null> {
+    this.value = value
+    return await Promise.resolve('decrypted')
   }
-  return new EncrypterStub()
 }
