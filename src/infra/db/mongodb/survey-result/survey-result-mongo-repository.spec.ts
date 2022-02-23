@@ -73,7 +73,6 @@ describe('Survey Mongo Repository', () => {
         surveyId: new ObjectId(survey.id),
         accountId: new ObjectId(account.id)
       })
-      console.log(survey)
       expect(surveyResult).toBeTruthy()
     })
 

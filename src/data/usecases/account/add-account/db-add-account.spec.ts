@@ -70,7 +70,6 @@ describe('DbAddAccount UseCase', () => {
   test('Should call LoadAccountByEmailRepository with correct email', async () => {
     const { loadNullAccountByEmailRepositorySpy, sut } = makeSut()
     await sut.add(mockAddAccountParams())
-    console.log(loadNullAccountByEmailRepositorySpy)
     expect(loadNullAccountByEmailRepositorySpy.email).toBe('any_email@email.com')
   })
 
