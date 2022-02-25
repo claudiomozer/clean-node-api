@@ -1,8 +1,6 @@
-import {
-  HttpRequest
-} from '@/presentation/controllers/survey-result/save-survey-result/save-survey-result-controller-protocols'
-import { forbidden, serverError, ok } from '@/presentation/helpers/http/http-helpers'
-import { SaveSurveyResultController } from '@/presentation/controllers/survey-result/save-survey-result/save-survey-result-controller'
+import { HttpRequest } from '@/presentation/protocols'
+import { forbidden, serverError, ok } from '@/presentation/helpers/http'
+import { SaveSurveyResultController } from '@/presentation/controllers'
 import { InvalidParamError } from '@/presentation/errors'
 import { mockSurveyResult, throwError } from '@/tests/domain/mocks'
 import MockDate from 'mockdate'

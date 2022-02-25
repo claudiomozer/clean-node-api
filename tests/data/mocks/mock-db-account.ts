@@ -1,10 +1,8 @@
-import { AddAccountRepository } from '@/data/protocols/db/account/add-account-repository'
-import { LoadAccountByTokenRepository } from '@/data/protocols/db/account/load-account-by-token-repository'
-import { UpdateAccessTokenRepository } from '@/data/protocols/db/account/update-access-token-repository'
-import { mockAccountModel } from '@/tests/domain/mocks'
 import { AccountModel } from '@/domain/models/account'
-import { AddAccountParams } from '@/domain/usecases/account/add-account'
-import { LoadAccountByEmailRepository } from '@/data/usecases/account/add-account/db-add-account-protocols'
+import { AddAccountParams } from '@/domain/usecases'
+import { AddAccountRepository, LoadAccountByTokenRepository, UpdateAccessTokenRepository } from '@/data/protocols/db'
+import { LoadAccountByEmailRepository } from '@/data/protocols/db/'
+import { mockAccountModel } from '@/tests/domain/mocks'
 
 export class AddAccountRepositorySpy implements AddAccountRepository {
   accountModel = mockAccountModel()

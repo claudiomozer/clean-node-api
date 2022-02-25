@@ -1,9 +1,7 @@
-import { AddSurveyRepository } from '@/data/protocols/db/survey/add-survey-repository'
-import { AddSurveyParams } from '@/domain/usecases/survey/add-survey'
-import { mockSurveyModel, mockSurveys } from '@/tests/domain/mocks'
-import { LoadSurveyByIdRepository } from '@/data/protocols/db/survey/load-survey-by-id-repository'
 import { SurveyModel } from '@/domain/models/survey'
-import { LoadSurveysRepository } from '@/data/protocols/db/survey/load-surveys-repository'
+import { AddSurveyParams } from '@/domain/usecases'
+import { AddSurveyRepository, LoadSurveyByIdRepository, LoadSurveysRepository } from '@/data/protocols/db'
+import { mockSurveyModel, mockSurveys } from '@/tests/domain/mocks'
 
 export class AddSurveyRepositorySpy implements AddSurveyRepository {
   surveyData: AddSurveyParams

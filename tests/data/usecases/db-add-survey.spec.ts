@@ -1,6 +1,6 @@
 import { AddSurveyRepositorySpy } from '@/tests/data/mocks'
 import { mockAddSurveyParams, throwError } from '@/tests/domain/mocks'
-import { DbAddSurvey } from '@/data/usecases/survey/add-survey/db-add-survey'
+import { DbAddSurvey } from '@/data/usecases'
 
 type SutTypes = {
   sut: DbAddSurvey

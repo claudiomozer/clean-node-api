@@ -1,6 +1,6 @@
 import { HashComparerSpy, EncrypterSpy, LoadAccountByEmailRepositorySpy, UpdateAcessTokenRepositorySpy } from '@/tests/data/mocks'
 import { mockFakeAuthentication, throwError } from '@/tests/domain/mocks'
-import { DbAuthentication } from '@/data/usecases/account/authentication/db-authentication'
+import { DbAuthentication } from '@/data/usecases'
 
 type SutTypes = {
   sut: DbAuthentication

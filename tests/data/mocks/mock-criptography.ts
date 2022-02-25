@@ -1,7 +1,4 @@
-import { Decrypter } from '@/data/protocols/criptography/decrypter'
-import { Encrypter } from '@/data/protocols/criptography/encrypter'
-import { HashComparer } from '@/data/protocols/criptography/hash-comparer'
-import { Hasher } from '@/data/protocols/criptography/hasher'
+import { HashComparer, Hasher, Encrypter, Decrypter } from '@/data/protocols/criptography'
 import faker from '@faker-js/faker'
 
 export class HasherSpy implements Hasher {

@@ -1,7 +1,6 @@
 import { mockAddAccountParams, mockAddSurveyParams } from '@/tests/domain/mocks'
 import { AccountModel } from '@/domain/models/account'
-import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
-import { SurveyMongoRepository } from '@/infra/db/mongodb/survey/survey-mongo-repository'
+import { MongoHelper, SurveyMongoRepository } from '@/infra/db'
 import { Collection, ObjectId } from 'mongodb'
 
 const makeSut = (): SurveyMongoRepository => {

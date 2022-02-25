@@ -1,4 +1,4 @@
-import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
+import { MongoHelper } from '@/infra/db'
 import app from '@/main/config/app'
 import { Collection } from 'mongodb'
 import { hash } from 'bcrypt'

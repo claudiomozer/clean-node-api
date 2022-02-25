@@ -1,6 +1,6 @@
 import { mockSurveyResult, throwError } from '@/tests/domain/mocks'
 import { LoadSurveyByIdRepositorySpy, LoadSurveyResultRepositorySpy } from '@/tests/data/mocks'
-import { DbLoadSurveyResult } from '@/data/usecases/survey-result/load-survey-result/db-load-survey-result'
+import { DbLoadSurveyResult } from '@/data/usecases'
 import MockDate from 'mockdate'
 
 type SutTypes = {

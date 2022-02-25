@@ -1,5 +1,4 @@
-import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
-import { SurveyResultMongoRepository } from '@/infra/db/mongodb/survey-result/survey-result-mongo-repository'
+import { MongoHelper, SurveyResultMongoRepository } from '@/infra/db'
 import { SurveyModel } from '@/domain/models/survey'
 import { AccountModel } from '@/domain/models/account'
 import { Collection, ObjectId } from 'mongodb'

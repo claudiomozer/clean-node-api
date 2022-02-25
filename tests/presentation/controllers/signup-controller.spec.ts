@@ -1,10 +1,8 @@
-import { SignUpController } from '@/presentation/controllers/login/signup/signup-controller'
+import { SignUpController } from '@/presentation/controllers'
 import { EmailInUseError, MissingParamError } from '@/presentation/errors'
-import { ok, serverError, badRequest, forbidden } from '@/presentation/helpers/http/http-helpers'
+import { ok, serverError, badRequest, forbidden } from '@/presentation/helpers/http'
 import { AddAccountSpy, AuthenticationSpy, ValidationSpy } from '@/tests/presentation/mocks'
-import {
-  HttpRequest
-} from '@/presentation/controllers/login/signup/signup-controller-protocols'
+import { HttpRequest } from '@/presentation/protocols'
 import { throwError } from '@/tests/domain/mocks'
 
 const mockRequest = (): HttpRequest => ({

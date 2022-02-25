@@ -1,7 +1,8 @@
 import { throwError } from '@/tests/domain/mocks'
 import { AddSurveySpy, ValidationSpy } from '@/tests/presentation/mocks'
-import { AddSurveyController } from '@/presentation/controllers/survey/add-survey/add-survey-controller'
-import { badRequest, HttpRequest, noContent, serverError } from '@/presentation/controllers/survey/add-survey/add-survey-controller-protocols'
+import { AddSurveyController } from '@/presentation/controllers'
+import { badRequest, noContent, serverError } from '@/presentation/helpers/http'
+import { HttpRequest } from '@/presentation/protocols'
 import MockDate from 'mockdate'
 
 const makeFakeRequest = (): HttpRequest => {

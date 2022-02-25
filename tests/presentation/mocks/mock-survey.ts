@@ -1,8 +1,6 @@
 import { mockSurveyModel, mockSurveys } from '@/tests/domain/mocks'
 import { SurveyModel } from '@/domain/models/survey'
-import { LoadSurveys } from '@/domain/usecases/survey/load-surveys'
-import { LoadSurveyById } from '@/domain/usecases/survey/load-survey-by-id'
-import { AddSurvey, AddSurveyParams } from '@/domain/usecases/survey/add-survey'
+import { AddSurvey, AddSurveyParams, LoadSurveys, LoadSurveyById } from '@/domain/usecases'
 
 export class LoadSurveysSpy implements LoadSurveys {
   surveys = mockSurveys()

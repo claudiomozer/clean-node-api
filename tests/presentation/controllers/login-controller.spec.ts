@@ -1,7 +1,7 @@
 import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helpers'
 import { MissingParamError } from '@/presentation/errors'
-import { HttpRequest } from '@/presentation/controllers/login/login/login-controller-protocols'
-import { LoginController } from '@/presentation/controllers/login/login/login-controller'
+import { HttpRequest } from '@/presentation/protocols'
+import { LoginController } from '@/presentation/controllers'
 import { AuthenticationSpy, ValidationSpy } from '@/tests/presentation/mocks'
 import { throwError } from '@/tests/domain/mocks'
 

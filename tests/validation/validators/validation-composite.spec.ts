@@ -1,6 +1,6 @@
 import { MissingParamError } from '@/presentation/errors'
 import { ValidationSpy } from '@/tests/validation/mocks'
-import { ValidationComposite } from '@/validation/validators/validation-composite'
+import { ValidationComposite } from '@/validation/validators'
 
 type SutTypes = {
   sut: ValidationComposite

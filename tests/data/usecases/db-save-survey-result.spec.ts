@@ -1,4 +1,4 @@
-import { DbSaveSurveyResult } from '@/data/usecases/survey-result/save-survey-result/db-save-survey-result'
+import { DbSaveSurveyResult } from '@/data/usecases'
 import { mockSurveyResult, mockSurveyResultData, throwError } from '@/tests/domain/mocks'
 import { LoadSurveyResultRepositorySpy, SaveSurveyResultRepositorySpy } from '@/tests/data/mocks'
 import MockDate from 'mockdate'
