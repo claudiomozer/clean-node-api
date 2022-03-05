@@ -6,10 +6,10 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
   async add (accountData: AddAccountRepository.Params): Promise<AddAccountRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const result = await accountCollection.insertOne(Object.assign({}, accountData))
-    return MongoHelper.map(accountData, result.insertedId)
+    return !!result.insertedId
   }
 
-  async loadByEmail (email: string): Promise<AddAccountRepository.Result> {
+  async loadByEmail (email: string): Promise<LoadAccountByTokenRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const account = await accountCollection.findOne({ email })
     return account && MongoHelper.map(account)
