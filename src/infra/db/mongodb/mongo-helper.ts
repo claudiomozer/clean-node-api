@@ -23,9 +23,6 @@ export const MongoHelper = {
   },
 
   map: (data: any, id?: ObjectId): any => {
-    if (id) {
-      return Object.assign({}, data, { id: id.toString() })
-    }
     let { _id, ...payload } = data
     if (_id) {
       payload = Object.assign(payload, { id: _id.toString() })
