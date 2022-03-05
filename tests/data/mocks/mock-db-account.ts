@@ -43,7 +43,7 @@ export class LoadAccountByTokenRepositorySpy implements LoadAccountByTokenReposi
   token: string
   role: string | undefined
   account = mockAccountModel()
-  async loadByToken (token: string, role?: string): Promise<AccountModel | null> {
+  async loadByToken (token: string, role?: string): Promise<LoadAccountByTokenRepository.Result> {
     this.token = token
     this.role = role
     return await Promise.resolve(this.account)
