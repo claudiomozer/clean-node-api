@@ -12,7 +12,7 @@ export class AddSurveyRepositorySpy implements AddSurveyRepository {
 
 export class LoadSurveyByIdRepositorySpy implements LoadSurveyByIdRepository {
   id: string
-  async loadById (id: string): Promise<SurveyModel> {
+  async loadById (id: string): Promise<LoadSurveyByIdRepository.Result> {
     this.id = id
     return mockSurveyModel()
   }

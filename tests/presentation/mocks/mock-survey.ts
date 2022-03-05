@@ -22,7 +22,7 @@ export class AddSurveySpy implements AddSurvey {
 export class LoadSurveyByIdSpy implements LoadSurveyById {
   id: string
   surveyModel = mockSurveyModel()
-  async loadById (id: string): Promise<SurveyModel | null> {
+  async loadById (id: string): Promise<LoadSurveyById.Result> {
     this.id = id
     return await Promise.resolve(this.surveyModel)
   }
