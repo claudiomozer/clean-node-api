@@ -1,6 +1,7 @@
 export * from './add-account-repository'
 export * from './add-survey-repository'
 export * from './load-account-by-email-repository'
+export * from './check-account-by-email-repository'
 export * from './load-account-by-token-repository'
 export * from './load-survey-by-id-repository'
 export * from './load-survey-result-repository'
