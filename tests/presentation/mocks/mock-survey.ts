@@ -1,6 +1,6 @@
 import { mockSurveyModel, mockSurveys } from '@/tests/domain/mocks'
 import { SurveyModel } from '@/domain/models/survey'
-import { AddSurvey, LoadSurveys, LoadSurveyById } from '@/domain/usecases'
+import { AddSurvey, LoadSurveys, LoadSurveyById, CheckSurveyById } from '@/domain/usecases'
 
 export class LoadSurveysSpy implements LoadSurveys {
   surveys = mockSurveys()
@@ -16,6 +16,15 @@ export class AddSurveySpy implements AddSurvey {
   async add (data: AddSurvey.Params): Promise<void> {
     this.data = data
     return await Promise.resolve()
+  }
+}
+
+export class CheckSurveyByIdSpy implements CheckSurveyById {
+  id: string
+  exists = true
+  async checkById (id: string): Promise<CheckSurveyById.Result> {
+    this.id = id
+    return await Promise.resolve(this.exists)
   }
 }
 

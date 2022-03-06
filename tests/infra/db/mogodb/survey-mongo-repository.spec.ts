@@ -101,4 +101,21 @@ describe('Survey Mongo Repository', () => {
       expect(surveys).toBeTruthy()
     })
   })
+
+  describe('loadById()', () => {
+    test('Should return true if found a survey on success', async () => {
+      const insertedSurvey = await surveyCollection.insertOne({
+        question: 'any_question',
+        answers: [{
+          image: 'any_image',
+          answer: 'any_answer'
+        }],
+        date: new Date()
+      })
+      const id = insertedSurvey.insertedId.toString()
+      const sut = makeSut()
+      const exists = await sut.checkById(id)
+      expect(exists).toBe(true)
+    })
+  })
 })
