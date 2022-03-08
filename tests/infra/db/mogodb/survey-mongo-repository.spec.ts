@@ -85,6 +85,30 @@ describe('Survey Mongo Repository', () => {
     })
   })
 
+  describe('loadAnwers()', () => {
+    test('Should load answers on success', async () => {
+      const insertedSurvey = await surveyCollection.insertOne({
+        question: 'any_question',
+        answers: [{
+          image: 'any_image',
+          answer: 'any_answer'
+        }],
+        date: new Date()
+      })
+      const id = insertedSurvey.insertedId.toString()
+      const sut = makeSut()
+      const answers = await sut.loadAnswers(id)
+      expect(answers).toEqual(['any_answer'])
+    })
+
+    test('Should load empty list', async () => {
+      const id = new ObjectId()
+      const sut = makeSut()
+      const surveys = await sut.loadAnswers(id.toString())
+      expect(surveys.length).toEqual(0)
+    })
+  })
+
   describe('loadById()', () => {
     test('Should load a survey by id on success', async () => {
       const insertedSurvey = await surveyCollection.insertOne({
@@ -102,7 +126,7 @@ describe('Survey Mongo Repository', () => {
     })
   })
 
-  describe('loadById()', () => {
+  describe('checkById()', () => {
     test('Should return true if found a survey on success', async () => {
       const insertedSurvey = await surveyCollection.insertOne({
         question: 'any_question',
