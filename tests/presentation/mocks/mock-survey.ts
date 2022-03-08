@@ -1,6 +1,7 @@
-import { mockSurveyModel, mockSurveys } from '@/tests/domain/mocks'
+import { mockSurveys } from '@/tests/domain/mocks'
 import { SurveyModel } from '@/domain/models/survey'
-import { AddSurvey, LoadSurveys, LoadSurveyById, CheckSurveyById } from '@/domain/usecases'
+import { AddSurvey, LoadSurveys, LoadAnswersBySurvey, CheckSurveyById } from '@/domain/usecases'
+import faker from '@faker-js/faker'
 
 export class LoadSurveysSpy implements LoadSurveys {
   surveys = mockSurveys()
@@ -28,11 +29,11 @@ export class CheckSurveyByIdSpy implements CheckSurveyById {
   }
 }
 
-export class LoadSurveyByIdSpy implements LoadSurveyById {
+export class LoadAnswersBySurveySpy implements LoadAnswersBySurvey {
   id: string
-  surveyModel = mockSurveyModel()
-  async loadById (id: string): Promise<LoadSurveyById.Result> {
+  answers = [faker.random.word(), faker.random.word()]
+  async loadAnswers (id: string): Promise<LoadAnswersBySurvey.Result> {
     this.id = id
-    return await Promise.resolve(this.surveyModel)
+    return await Promise.resolve(this.answers)
   }
 }
