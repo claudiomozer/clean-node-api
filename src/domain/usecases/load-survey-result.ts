@@ -1,5 +1,9 @@
 import { SurveyResultModel } from '@/domain/models/survey-result'
 
-export type LoadSurveyResult = {
-  load: (surveyId: string) => Promise<SurveyResultModel | null>
+export interface LoadSurveyResult {
+  load: (surveyId: string) => Promise<LoadSurveyResult.Result>
+}
+
+export namespace LoadSurveyResult {
+  export type Result = SurveyResultModel | null
 }

@@ -12,7 +12,7 @@ export class SaveSurveyResultSpy implements SaveSurveyResult {
 
 export class LoadSurveyResultSpy implements LoadSurveyResult {
   surveyId: string
-  async load (surveyId: string): Promise<SurveyResultModel | null> {
+  async load (surveyId: string): Promise<LoadSurveyResult.Result> {
     this.surveyId = surveyId
     return await Promise.resolve(mockSurveyResult())
   }
